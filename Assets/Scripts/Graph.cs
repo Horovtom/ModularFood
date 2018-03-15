@@ -10,27 +10,28 @@ public class Graph : MonoBehaviour {
 	private FunctionsRepository.Shape _shape;
 	public FunctionsRepository.Shape shape;
 
-	public Transform pointPrefab;
+	public GameObject pointPrefab;
 
 	private int _resolution;
 	public int resolution;
 
 	private bool changed = true;
 
-	Transform[] cubes;
+    List<GameObject> points = new List<GameObject>();
 
 	void Awake() {
 		Transform point;
 		for (int i = 0; i < 10; i++) {
-			point = Instantiate(pointPrefab);
-			point.SetParent(this.transform);
-			point.localPosition = Vector3.right * (i / 5f - 1f);
-			point.localScale = Vector3.one / 5f;
-		}
-	}
+            //point = instantiate(pointprefab);
+            //point.setparent(this.transform);
+            //point.localposition = vector3.right * (i / 5f - 1f);
+            //point.localScale = Vector3.one / 5f;
+        }
+    }
 
 	// Use this for initialization
 	void Start() {
+        SimplePool.Preload(pointPrefab, 100);
 		shape = FunctionsRepository.Shape.Cube;
 		resolution = MIN_RESOLUTION;
 		CreateCubes();
@@ -53,11 +54,11 @@ public class Graph : MonoBehaviour {
 			_resolution = resolution;
 			changed = true;
 		}
-
+        //TODO: UPDATE
 	}
 
 	private void CreateCubes() {
-		cubes = new Transform[resolution * resolution];
+		
 
 	}
 }

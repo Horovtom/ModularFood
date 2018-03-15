@@ -3,26 +3,61 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Graph : MonoBehaviour {
+	private const int MIN_RESOLUTION = 10;
+	private const int MAX_RESOLUTION = 10000;
+	private FunctionsRepository repository = new FunctionsRepository();
 
-    public Transform pointPrefab;
+	private FunctionsRepository.Shape _shape;
+	public FunctionsRepository.Shape shape;
 
-    void Awake() {
-        Transform point;
-        for (int i = 0; i < 10; i++ ) {
-            point = Instantiate(pointPrefab);
-            point.SetParent(this.transform);
-            point.localPosition = Vector3.right * (i / 5f - 1f);
-            point.localScale = Vector3.one / 5f;
-        }
-    }
+	public Transform pointPrefab;
 
-    // Use this for initialization
-    void Start () {
-		
+	private int _resolution;
+	public int resolution;
+
+	private bool changed = true;
+
+	Transform[] cubes;
+
+	void Awake() {
+		Transform point;
+		for (int i = 0; i < 10; i++) {
+			point = Instantiate(pointPrefab);
+			point.SetParent(this.transform);
+			point.localPosition = Vector3.right * (i / 5f - 1f);
+			point.localScale = Vector3.one / 5f;
+		}
+	}
+
+	// Use this for initialization
+	void Start() {
+		shape = FunctionsRepository.Shape.Cube;
+		resolution = MIN_RESOLUTION;
+		CreateCubes();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update() {
+		if (shape != _shape) {
+			Debug.Log("Shape changed to: " + shape);
+			_shape = shape;
+			changed = true;
+			repository.SetShape(shape);
+		}
+		if (_resolution != resolution) {
+			if (resolution < MIN_RESOLUTION || resolution > MAX_RESOLUTION) {
+				Debug.Log("Trying to set Resolution to wrong value! Resetting to minimum");
+				resolution = MIN_RESOLUTION;
+			}
+			Debug.Log("Resolution changed to: " + resolution);
+			_resolution = resolution;
+			changed = true;
+		}
+
+	}
+
+	private void CreateCubes() {
+		cubes = new Transform[resolution * resolution];
+
 	}
 }

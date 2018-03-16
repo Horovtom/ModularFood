@@ -8,7 +8,6 @@ public class VertexMesh {
 	private float scale;
 	private int resolution;
 	private GraphController parent;
-
 	private Vector3[] vertices;
 
 	public VertexMesh(GraphController parent, FunctionsRepository.Shape shape, float scale, int resolution) {
@@ -23,6 +22,7 @@ public class VertexMesh {
 
 
 	public void UpdateMesh(FunctionsRepository.Shape shape, float scale, float sweet, float sour, float umami, float bitter, float salty) {
+
 		this.shape = shape;
 		this.scale = scale;
 		repository.SetShape(shape);
@@ -37,8 +37,8 @@ public class VertexMesh {
 		filter.mesh = mesh = new Mesh();
 		mesh.name = "Procedural Grid";
 
-		Vector2 uRange = repository.GetURange(), vRange = repository.GetVRange();
-		float uSpan = uRange.y - uRange.x, vSpan = vRange.y - vRange.x;
+		Vector2 uBounds = repository.GetURange(), vBounds = repository.GetVRange();
+		float uSpan = uBounds.y - uBounds.x, vSpan = vBounds.y - vBounds.x;
 		float uRes = uSpan / (this.resolution - 1), vRes = vSpan / (this.resolution - 1);
 
 		vertices = new Vector3[resolution * resolution];
@@ -46,9 +46,9 @@ public class VertexMesh {
 
 		float u, v;
 		for (int y = 0, a = 0; y < this.resolution; y++) {
-			v = vRange.x + y * vRes;
+			v = vBounds.x + y * vRes;
 			for (int x = 0; x < this.resolution; x++, a++) {
-				u = uRange.x + x * uRes;
+				u = uBounds.x + x * uRes;
 				vertices[a] = repository.GetVect(u, v);
 				uv[y] = new Vector2(x / this.resolution, y / this.resolution);
 			}
@@ -84,4 +84,5 @@ public class VertexMesh {
 			Gizmos.DrawSphere(vertices[i], 0.1f);
 		}
 	}
+
 }

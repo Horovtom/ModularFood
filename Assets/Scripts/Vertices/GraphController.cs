@@ -102,7 +102,7 @@ public class GraphController : MonoBehaviour {
 		this.umami = value;
 	}
 
-	public void SetSalty(float value) {
+	public void SetSalty(float value) { 
 		this.salty = value;
 	}
 

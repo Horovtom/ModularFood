@@ -14,7 +14,7 @@ public class GraphMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (Input.GetMouseButton(0)) {
+		if (Input.GetMouseButton(0) && Input.mousePosition.y < Screen.height - 100) {
 			Transform t = GetComponent<Transform>();
 			t.Rotate(new Vector3(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0) * Time.deltaTime * dragSpeed);
 		}

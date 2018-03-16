@@ -89,4 +89,24 @@ public class GraphController : MonoBehaviour {
 			return;
 		//vertexMesh.DrawGizmos();
 	}
+
+	public void SetSweet(float value) {
+		this.sweet = value;
+	}
+
+	public void SetSour(float value) {
+		this.sour = value;
+	}
+
+	public void SetUmami(float value) {
+		this.umami = value;
+	}
+
+	public void SetSalty(float value) {
+		this.salty = value;
+	}
+
+	public void SetBitter(float value) {
+		this.bitter = value;
+	}
 }

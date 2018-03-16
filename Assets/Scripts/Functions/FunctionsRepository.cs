@@ -10,6 +10,7 @@ public class FunctionsRepository {
 		Custom
 	}
 
+	private float sweet, sour, umami, bitter, salty;
 	bool changed = true;
 
 	private Shape currentShape;
@@ -110,10 +111,7 @@ public class FunctionsRepository {
 			Debug.LogError("U or V were out of bounds! u:" + u + " v: " + v);
 			throw new UnityException();
 		}
-
-		float salty, bitter, sour, umami, sweet;
-		salty = bitter = sour = umami = sweet = 11;
-
+			
 		x = Mathf.Cos(u) * (salty * Mathf.Cos(v) - Mathf.Cos(bitter * v));
 		y = Mathf.Sin(u) * (salty * Mathf.Cos(v) - Mathf.Cos(sour * v));
 		z = umami * Mathf.Sin(v) - Mathf.Sin(sweet * v);
@@ -121,4 +119,11 @@ public class FunctionsRepository {
 	}
 
 
+	public void SetTastes(float sweet, float sour, float umami, float bitter, float salty) {
+		this.sweet = sweet;
+		this.sour = sour;
+		this.umami = umami;
+		this.bitter = bitter;
+		this.salty = salty;
+	}
 }

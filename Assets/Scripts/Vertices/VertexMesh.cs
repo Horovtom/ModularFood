@@ -2,34 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexMesh : MonoBehaviour {
+public class VertexMesh {
 	private FunctionsRepository repository = new FunctionsRepository();
 	private FunctionsRepository.Shape shape;
 	private float scale;
 	private int resolution;
+	private GraphController parent;
 
 	private Vector3[] vertices;
-	private Mesh mesh;
 
-	public VertexMesh(FunctionsRepository.Shape shape, float scale, int resolution, MeshFilter meshFilter) {
+	public VertexMesh(GraphController parent, FunctionsRepository.Shape shape, float scale, int resolution) {
+		this.parent = parent;
 		this.shape = shape;
 		this.scale = scale;
 		this.resolution = resolution;
-		meshFilter.mesh = this.mesh = new Mesh();
 		repository.SetShape(shape);
+		repository.SetTastes(11, 11, 11, 11, 11);
 		ReDoMesh();
 	}
 
-	public void UpdateMesh(FunctionsRepository.Shape shape, float scale, int resolution) {
+
+	public void UpdateMesh(FunctionsRepository.Shape shape, float scale, float sweet, float sour, float umami, float bitter, float salty) {
 		this.shape = shape;
 		this.scale = scale;
-		this.resolution = resolution;
-		this.mesh = mesh = new Mesh();
 		repository.SetShape(shape);
+		repository.SetTastes(sweet, sour, umami, bitter, salty);
 		ReDoMesh();
 	}
 
 	private void ReDoMesh() {
+		Mesh mesh;
+		MeshFilter filter = parent.GetComponent<MeshFilter>();
+		filter.mesh = null;
+		filter.mesh = mesh = new Mesh();
 		mesh.name = "Procedural Grid";
 
 		Vector2 uRange = repository.GetURange(), vRange = repository.GetVRange();

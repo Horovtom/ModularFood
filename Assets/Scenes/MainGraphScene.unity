@@ -344,5 +344,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 0
+  sweet: 11
+  sour: 11
+  umami: 11
+  salty: 11
+  bitter: 11
   scale: 10
-  resolution: 100
